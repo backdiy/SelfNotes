@@ -1,0 +1,155 @@
+{
+  "main": {
+    "id": "5cae02b9e1f9b939",
+    "type": "split",
+    "children": [
+      {
+        "id": "22a6ce553aef3ab8",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "84b4e075aeaea532",
+            "type": "leaf",
+            "state": {
+              "type": "empty",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "c4475eaa68e86927",
+    "type": "split",
+    "children": [
+      {
+        "id": "0a384b6d8473ac6e",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "b358e0a6eb6f2aa8",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "1d965f2660a60cf5",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "5ba46ffb17e487e7",
+            "type": "leaf",
+            "state": {
+              "type": "starred",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "bb90f778fd931465",
+    "type": "split",
+    "children": [
+      {
+        "id": "f5c46719bfdc6068",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "0326a862adc59893",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "2504f13090e3d9df",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "0f9323f6919a2dcd",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "58251e4bbf8120a2",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:打开快速切换": false,
+      "graph:查看关系图谱": false,
+      "canvas:新建白板": false,
+      "daily-notes:打开/创建今天的日记": false,
+      "templates:插入模板": false,
+      "command-palette:打开命令面板": false
+    }
+  },
+  "active": "84b4e075aeaea532",
+  "lastOpenFiles": [
+    "未命名 1.canvas",
+    "未命名.canvas",
+    "藏经阁/jackson/jackson使用方法总结.md",
+    "藏经阁/activiti7/activiti工作流.md",
+    "中间键",
+    "ansible/Pasted image 20230414114119.png.md",
+    "ansible/未命名.md",
+    "Pasted image 20230414114119.png",
+    "ansible/Pasted image 20230414114016.png",
+    "Pasted image 20230414113830.png",
+    "ansible"
+  ]
+}
