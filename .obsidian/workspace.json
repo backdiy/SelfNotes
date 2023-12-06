@@ -4,15 +4,19 @@
     "type": "split",
     "children": [
       {
-        "id": "22a6ce553aef3ab8",
+        "id": "d9dc1b866ec99263",
         "type": "tabs",
         "children": [
           {
-            "id": "84b4e075aeaea532",
+            "id": "45cc659a6a7b277c",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "大数据/hadoop/hadoop.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -60,6 +64,14 @@
               "type": "starred",
               "state": {}
             }
+          },
+          {
+            "id": "6f66f4356b15a1f0",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
           }
         ]
       }
@@ -81,6 +93,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "大数据/hadoop/hadoop.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +110,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "大数据/hadoop/hadoop.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,15 +132,16 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "大数据/hadoop/hadoop.md"
+              }
             }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -138,10 +153,33 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "84b4e075aeaea532",
+  "active": "45cc659a6a7b277c",
   "lastOpenFiles": [
+    "中间件/redis/redis.md",
+    "大数据/hadoop/hadoop.assets/image-20231206111522709.png",
+    "大数据/hadoop/hadoop.assets/image-20231206111107035.png",
+    "大数据/hadoop/hadoop.assets/image-20231206110850080.png",
+    "大数据/hadoop/hadoop.assets/image-20231206110807357.png",
+    "大数据/hadoop/hadoop.assets/image-20231206110521860.png",
+    "大数据/hadoop/hadoop.assets/image-20231206104502648.png",
+    "大数据/hadoop/hadoop.assets/image-20231206102746267.png",
+    "大数据/hadoop/hadoop.assets",
+    "大数据/hadoop/hadoop.md",
+    "大数据/hadoop/新建文本文档.txt",
+    "大数据/flink",
+    "大数据/新建文件夹",
+    "大数据/spark",
+    "大数据/hadoop",
+    "大数据/Flink.md",
+    "大数据/新建文本文档.txt",
+    "大数据/Spark.md",
+    "大数据/~$谷大数据技术之Zookeeper（V3.2）.docx",
+    "README.md",
+    "大数据/尚硅谷大数据技术之Zookeeper（V3.2）.docx",
     "未命名 1.canvas",
     "未命名.canvas",
+    "未命名 3.canvas",
+    "未命名 2.canvas",
     "藏经阁/jackson/jackson使用方法总结.md",
     "藏经阁/activiti7/activiti工作流.md",
     "中间键",
@@ -149,7 +187,6 @@
     "ansible/未命名.md",
     "Pasted image 20230414114119.png",
     "ansible/Pasted image 20230414114016.png",
-    "Pasted image 20230414113830.png",
-    "ansible"
+    "Pasted image 20230414113830.png"
   ]
 }
