@@ -137,7 +137,8 @@
               }
             }
           }
-        ]
+        ],
+        "currentTab": 3
       }
     ],
     "direction": "horizontal",
@@ -155,6 +156,13 @@
   },
   "active": "45cc659a6a7b277c",
   "lastOpenFiles": [
+    "大数据/hadoop/hdfs.assets/image-20231206155924698.png",
+    "大数据/hadoop/hdfs.assets/image-20231206155857871.png",
+    "大数据/hadoop/hdfs.assets/image-20231206155827394.png",
+    "大数据/hadoop/hdfs.assets",
+    "大数据/hadoop/hdfs.md",
+    "大数据/hadoop/hdfs.txt",
+    "大数据/hadoop/新建文本文档.txt",
     "中间件/redis/redis.md",
     "大数据/hadoop/hadoop.assets/image-20231206111522709.png",
     "大数据/hadoop/hadoop.assets/image-20231206111107035.png",
@@ -165,7 +173,6 @@
     "大数据/hadoop/hadoop.assets/image-20231206102746267.png",
     "大数据/hadoop/hadoop.assets",
     "大数据/hadoop/hadoop.md",
-    "大数据/hadoop/新建文本文档.txt",
     "大数据/flink",
     "大数据/新建文件夹",
     "大数据/spark",
@@ -175,18 +182,14 @@
     "大数据/Spark.md",
     "大数据/~$谷大数据技术之Zookeeper（V3.2）.docx",
     "README.md",
-    "大数据/尚硅谷大数据技术之Zookeeper（V3.2）.docx",
     "未命名 1.canvas",
     "未命名.canvas",
     "未命名 3.canvas",
     "未命名 2.canvas",
     "藏经阁/jackson/jackson使用方法总结.md",
     "藏经阁/activiti7/activiti工作流.md",
-    "中间键",
     "ansible/Pasted image 20230414114119.png.md",
     "ansible/未命名.md",
-    "Pasted image 20230414114119.png",
-    "ansible/Pasted image 20230414114016.png",
-    "Pasted image 20230414113830.png"
+    "Pasted image 20230414114119.png"
   ]
 }
