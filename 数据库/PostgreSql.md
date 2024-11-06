@@ -251,7 +251,7 @@ SELECT format('%s %s world', 'hello', 'cruel');
 
 #### 补充字符串
 
-1. 使用lpad()函数
+1. 使用lpad()与rpad()函数
 
 PostgreSQL中的`lpad()`函数有两个功能：
 
@@ -260,6 +260,7 @@ PostgreSQL中的`lpad()`函数有两个功能：
 1. 如果长度不够指定的长度，就在左边填充字符串
 2. 如果长度超出了指定的长度，就把右边截掉。
 
+rpad()则相反。
 ```sql
 SELECT lpad('esource', 10, 'w3r');
 --  w3resource
