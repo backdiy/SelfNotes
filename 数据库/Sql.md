@@ -1,3 +1,16 @@
+## DDL
+
+## DML
+
+### 批量插入
+
+```sql
+INSERT INTO target_table (column1, column2, ...)
+SELECT value1, value2, ...
+FROM source_table
+WHERE condition;
+```
+
 ### 多表查询
 
 ####  联合查询

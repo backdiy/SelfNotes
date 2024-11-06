@@ -1,6 +1,47 @@
-## 元数据查询
+## DDL
 
-### 1.统计数据库大小
+#### 设置某个字段默认值
+
+* 建表时设置
+
+  ```sql
+  CREATE TABLE your_table (
+      id SERIAL PRIMARY KEY,
+      default_int INTEGER DEFAULT 0,
+      default_text VARCHAR DEFAULT '',
+      default_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
+  ```
+
+* 修改现有表
+
+  ```sql
+  ALTER TABLE your_table
+  ALTER COLUMN default_int SET DEFAULT 0;
+  
+  ALTER TABLE your_table
+  ALTER COLUMN default_text SET DEFAULT '';
+  
+  ALTER TABLE your_table
+  ALTER COLUMN default_timestamp SET DEFAULT CURRENT_TIMESTAMP;
+  ```
+
+* 移除默认值
+
+  ```sql
+  ALTER TABLE your_table
+  ALTER COLUMN default_int DROP DEFAULT;
+  ```
+
+## DML
+
+### 关于数据表中字段值为null的查询问题
+
+pgsql在查询`select a.id,b.id from a left join b on a.name = b.name where b.id != 1`查询无数据，但是where条件加上`or b.id is null`就能查询出数据
+
+这个查询会返回所有 `a` 表中的记录，并且对于 `a` 表中每一条记录，如果 `b` 表中存在 `name` 相同的记录，那么 `b.id` 会被包含在结果集中；如果不存在，`b.id` 会是 `NULL`。`WHERE` 子句 `b.id != 1` 会过滤掉那些 `b.id` 等于 1 的记录。但是，如果 `b.id` 是 `NULL`（即没有匹配的 `b` 表记录），这个条件也会过滤掉这些记录，因为 `NULL` 和任何值的比较都不会返回 `true`。
+
+### 统计数据库大小
 
 * 单个数据库的大小
 
@@ -14,7 +55,7 @@ select pg_size_pretty(pg_database_size('test_database')) AS database_size;
 select datname, pg_size_pretty (pg_database_size(datname)) AS database_size from pg_database;
 ```
 
-### 2.统计数据表大小
+### 统计数据表大小
 
 * 单个表大小
 
@@ -37,6 +78,12 @@ order by pg_relation_size(relid) desc;
 ```
 
 ## 常用函数
+
+### 字符串通过某个字符分割
+
+使用`string_to_array(text,split)`函数，可以将字符串按照指定的分隔符分割成数组。
+
+如果已经使用 `string_to_array` 函数将字符串根据分隔符分割成了数组，可以用数组的下标来获取某一个元素，在 PostgreSQL 中，数组的下标从`1`开始。例如`(string_to_array(text,split))[2]` 访问这个数组的第二个元素。
 
 ### 字符串相关
 
