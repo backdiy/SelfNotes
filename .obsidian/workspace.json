@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "d9dc1b866ec99263",
+        "id": "e2f2cb2ef72347a2",
         "type": "tabs",
         "children": [
           {
-            "id": "45cc659a6a7b277c",
+            "id": "50c51438dd3b6668",
             "type": "leaf",
             "state": {
               "type": "diff-view",
@@ -147,9 +147,11 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {},
+              "state": {
+                "file": "GIT/Git.md"
+              },
               "icon": "lucide-list",
-              "title": "大纲"
+              "title": "Git 的大纲"
             }
           },
           {
@@ -180,11 +182,24 @@
       "command-palette:打开命令面板": false
     }
   },
-  "active": "45cc659a6a7b277c",
+  "active": "50c51438dd3b6668",
   "lastOpenFiles": [
-    "数据库/PostgreSql.md",
-    "数据库/PostGis.md",
+    "Java开发/序列化/jackson使用方法总结.md",
+    "GIT/Git.md",
+    "Java开发/Mybatis/Mybatis.md",
+    "Java开发/Mybatis",
+    "Java开发/缓存/未命名.md",
+    "GIS/gdal.md",
+    "GIT",
     "README.md",
+    "Java开发/缓存/SpringCache.md",
+    "Java开发/缓存/未命名 1.md",
+    "java开发/缓存/SpringCache.assets/file-20241106173351203.png",
+    "java开发/缓存/SpringCache.assets",
+    "Java开发/多线程/多线程.md",
+    "数据库/PostgreSql.md",
+    "数据库/Sql.md",
+    "数据库/PostGis.md",
     "2024-11-06.md",
     "大数据/hadoop/hadoop.md",
     "大数据/hadoop/hdfs.assets/image-20231206155924698.png",
@@ -201,16 +216,12 @@
     "大数据/hadoop/hadoop.assets/image-20231206110807357.png",
     "大数据/hadoop/hadoop.assets/image-20231206110521860.png",
     "大数据/hadoop/hadoop.assets/image-20231206104502648.png",
-    "大数据/hadoop/hadoop.assets/image-20231206102746267.png",
     "大数据/hadoop/hadoop.assets",
     "大数据/flink",
     "大数据/新建文件夹",
     "大数据/spark",
-    "大数据/hadoop",
     "大数据/Flink.md",
-    "大数据/新建文本文档.txt",
     "大数据/Spark.md",
-    "大数据/~$谷大数据技术之Zookeeper（V3.2）.docx",
     "未命名 1.canvas",
     "未命名.canvas",
     "未命名 3.canvas",
