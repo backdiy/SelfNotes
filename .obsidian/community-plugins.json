@@ -1,4 +1,10 @@
 [
   "obsidian-git",
-  "obsidian-custom-attachment-location"
+  "obsidian-custom-attachment-location",
+  "obsidian-pandoc",
+  "calendar",
+  "obsidian-icon-folder",
+  "obsidian-dictionary-plugin",
+  "dataview",
+  "obsidian-version-history-diff"
 ]
