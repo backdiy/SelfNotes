@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java开发/设计模式.md",
+                "file": "Java开发/分布式ID解决方案.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "设计模式"
+              "title": "分布式ID解决方案"
             }
           }
         ],
@@ -99,8 +99,7 @@
               "title": "书签"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       },
       {
         "id": "245307d9813f3377",
@@ -184,10 +183,10 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Java开发/设计模式.md"
+                "file": "Java开发/分布式ID解决方案.md"
               },
               "icon": "lucide-list",
-              "title": "设计模式 的大纲"
+              "title": "分布式ID解决方案 的大纲"
             }
           }
         ],
@@ -226,10 +225,11 @@
       "markdown-importer:打开 Markdown 格式转换器": false
     }
   },
-  "active": "1d965f2660a60cf5",
+  "active": "b985d6578fd5ad03",
   "lastOpenFiles": [
-    "GIS/PostGis.md",
     "Java开发/设计模式.md",
+    "Java开发/分布式ID解决方案.md",
+    "GIS/PostGis.md",
     "Python开发/python学习笔记.md",
     "开发小结.md",
     "Python开发",
@@ -262,7 +262,6 @@
     "Java开发/缓存/未命名 1.md",
     "java开发/缓存/SpringCache.assets/file-20241106173351203.png",
     "java开发/缓存/SpringCache.assets",
-    "2024-11-06.md",
     "大数据/hadoop/hdfs.assets/image-20231206155924698.png",
     "大数据/hadoop/hdfs.assets/image-20231206155857871.png",
     "大数据/hadoop/hdfs.assets/image-20231206155827394.png",

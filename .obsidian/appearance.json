@@ -1,5 +1,6 @@
 {
   "accentColor": "",
-  "theme": "moonstone",
-  "cssTheme": "Primary"
+  "theme": "obsidian",
+  "cssTheme": "Obsidianite",
+  "baseFontSizeAction": true
 }
