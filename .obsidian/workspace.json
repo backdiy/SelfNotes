@@ -27,21 +27,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Java开发/分布式ID解决方案.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "分布式ID解决方案"
-            }
-          },
-          {
-            "id": "ef97f62cb15be58f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Java开发/LeetCode.310 最小高度树.md",
+                "file": "刷题/LeetCode.310 最小高度树.md",
                 "mode": "source",
                 "source": false
               },
@@ -50,7 +36,7 @@
             }
           }
         ],
-        "currentTab": 2
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -91,16 +77,6 @@
               },
               "icon": "lucide-search",
               "title": "搜索"
-            }
-          },
-          {
-            "id": "5ba46ffb17e487e7",
-            "type": "leaf",
-            "state": {
-              "type": "starred",
-              "state": {},
-              "icon": "lucide-file",
-              "title": "插件不再活动"
             }
           },
           {
@@ -197,7 +173,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Java开发/LeetCode.310 最小高度树.md"
+                "file": "刷题/LeetCode.310 最小高度树.md"
               },
               "icon": "lucide-list",
               "title": "LeetCode.310 最小高度树 的大纲"
@@ -239,10 +215,11 @@
       "markdown-importer:打开 Markdown 格式转换器": false
     }
   },
-  "active": "ef97f62cb15be58f",
+  "active": "b985d6578fd5ad03",
   "lastOpenFiles": [
+    "刷题/LeetCode.4 寻找两个正序数组的中位数.md",
+    "刷题/LeetCode.310 最小高度树.md",
     "Java开发/分布式ID解决方案.md",
-    "Java开发/LeetCode.310 最小高度树.md",
     "刷题",
     "Java开发/分布式ID解决方案.assets/image.png",
     "Java开发/分布式ID解决方案.assets",
@@ -276,7 +253,6 @@
     "Java开发/Mybatis",
     "Java开发/缓存/未命名.md",
     "GIT",
-    "README.md",
     "java开发/缓存/SpringCache.assets/file-20241106173351203.png",
     "java开发/缓存/SpringCache.assets",
     "大数据/hadoop/hdfs.assets/image-20231206155924698.png",

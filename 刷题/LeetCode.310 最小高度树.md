@@ -1,4 +1,6 @@
 ## 方法1
+遍历两次树，找到树的最长路径的中位数节点
+* 时间复杂度：$O(2n)$
 ```java
 public List<Integer> findMinHeightTrees(int n, int[][] edges) {  
     if (n == 1) {  
@@ -79,6 +81,8 @@ public static class Node {
 }
 ```
 ## 方法二
+循环不断的将叶子节点删除，直到最后剩下1个或者2个节点
+- 时间复杂度：$O(n)$
 ```java
 public List<Integer> findMinHeightTrees(int n, int[][] edges) {  
     if (n == 1) {  
