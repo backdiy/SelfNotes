@@ -202,13 +202,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "conflict-files-obsidian-git.md",
+                "file": "刷题/LeetCode.310 最小高度树.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "conflict-files-obsidian-git 的大纲"
+              "title": "LeetCode.310 最小高度树 的大纲"
             }
           }
         ],
@@ -248,10 +248,10 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "2b43dfcf5f75a1c5",
+  "active": "16f480f506d2453f",
   "lastOpenFiles": [
-    "刷题/LeetCode.310 最小高度树.md",
     "conflict-files-obsidian-git.md",
+    "刷题/LeetCode.310 最小高度树.md",
     "刷题/LeetCode.9 回文数.md",
     "刷题/LeetCode.8 字符串转换整数.md",
     "刷题/LeetCode.7 整型反转.md",
