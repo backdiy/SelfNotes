@@ -244,13 +244,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "conflict-files-obsidian-git.md",
+                "file": "刷题/LeetCode.9 回文数.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "conflict-files-obsidian-git 的大纲"
+              "title": "LeetCode.9 回文数 的大纲"
             }
           }
         ],
@@ -290,10 +290,10 @@
       "markdown-importer:打开 Markdown 格式转换器": false
     }
   },
-  "active": "2b43dfcf5f75a1c5",
+  "active": "5965e7b885120519",
   "lastOpenFiles": [
-    "刷题/LeetCode.9 回文数.md",
     "conflict-files-obsidian-git.md",
+    "刷题/LeetCode.9 回文数.md",
     "刷题/LeetCode.8 字符串转换整数.md",
     "刷题/LeetCode.7 整型反转.md",
     "刷题/LeetCode.6 Z字形变换.md",
