@@ -4,109 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "e67f0a9232033425",
+        "id": "7eec0abd3c806476",
         "type": "tabs",
         "children": [
           {
-            "id": "fe776a7f9af2e248",
+            "id": "a0bbe557c5afba36",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Java开发/多线程.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "多线程"
-            }
-          },
-          {
-            "id": "b985d6578fd5ad03",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "刷题/LeetCode.4 寻找两个正序数组的中位数.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "LeetCode.4 寻找两个正序数组的中位数"
-            }
-          },
-          {
-            "id": "4d80dc9cb18fe543",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "刷题/LeetCode.4 寻找两个正序数组的中位数.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "LeetCode.4 寻找两个正序数组的中位数"
-            }
-          },
-          {
-            "id": "ae1bf10c0864a1e9",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "刷题/LeetCode.6 Z字形变换.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "LeetCode.6 Z字形变换"
-            }
-          },
-          {
-            "id": "ca61eca34f2b61bf",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "刷题/LeetCode.7 整型反转.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "LeetCode.7 整型反转"
-            }
-          },
-          {
-            "id": "b707d01f58ff8c1a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "刷题/LeetCode.8 字符串转换整数.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "LeetCode.8 字符串转换整数"
-            }
-          },
-          {
-            "id": "5965e7b885120519",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "刷题/LeetCode.9 回文数.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "LeetCode.9 回文数"
+              "title": "新标签页"
             }
           }
-        ],
-        "currentTab": 6
+        ]
       }
     ],
     "direction": "vertical"
@@ -244,13 +155,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "刷题/LeetCode.9 回文数.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "LeetCode.9 回文数 的大纲"
+              "title": "大纲"
             }
           }
         ],
@@ -279,6 +189,7 @@
   },
   "left-ribbon": {
     "hiddenItems": {
+      "table-editor-obsidian:Advanced Tables Toolbar": false,
       "switcher:打开快速切换": false,
       "graph:查看关系图谱": false,
       "canvas:新建白板": false,
@@ -289,10 +200,10 @@
       "markdown-importer:打开 Markdown 格式转换器": false
     }
   },
-  "active": "5965e7b885120519",
+  "active": "a0bbe557c5afba36",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
     "刷题/LeetCode.9 回文数.md",
+    "conflict-files-obsidian-git.md",
     "刷题/LeetCode.8 字符串转换整数.md",
     "刷题/LeetCode.7 整型反转.md",
     "刷题/LeetCode.6 Z字形变换.md",
