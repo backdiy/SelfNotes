@@ -1055,3 +1055,128 @@ String aa = "ab";
 String bb = "ab";
 System.out.println(aa==bb); // true
 ```
+### String s1 = new String("abc");这句话创建了几个字符串对象？
+会创建 1 或 2 个字符串对象。
+1. 字符串常量池中不存在 "abc"：会创建 2 个 字符串对象。一个在字符串常量池中，由 `ldc` 指令触发创建。一个在堆中，由 `new String()` 创建，并使用常量池中的 "abc" 进行初始化。
+2. 字符串常量池中已存在 "abc"：会创建 1 个 字符串对象。该对象在堆中，由 `new String()` 创建，并使用常量池中的 "abc" 进行初始化。
+
+1、如果字符串常量池中不存在字符串对象 “abc”，那么它首先会在字符串常量池中创建字符串对象 "abc"，然后在堆内存中再创建其中一个字符串对象 "abc"。
+```java
+String s1 = new String("abc");
+```
+```java
+// 在堆内存中分配一个尚未初始化的 String 对象。
+// #2 是常量池中的一个符号引用，指向 java/lang/String 类。
+// 在类加载的解析阶段，这个符号引用会被解析成直接引用，即指向实际的 java/lang/String 类。
+0 new #2 <java/lang/String>
+// 复制栈顶的 String 对象引用，为后续的构造函数调用做准备。
+// 此时操作数栈中有两个相同的对象引用：一个用于传递给构造函数，另一个用于保持对新对象的引用，后续将其存储到局部变量表。
+3 dup
+// JVM 先检查字符串常量池中是否存在 "abc"。
+// 如果常量池中已存在 "abc"，则直接返回该字符串的引用；
+// 如果常量池中不存在 "abc"，则 JVM 会在常量池中创建该字符串字面量并返回它的引用。
+// 这个引用被压入操作数栈，用作构造函数的参数。
+4 ldc #3 <abc>
+// 调用构造方法，使用从常量池中加载的 "abc" 初始化堆中的 String 对象
+// 新的 String 对象将包含与常量池中的 "abc" 相同的内容，但它是一个独立的对象，存储于堆中。
+6 invokespecial #4 <java/lang/String.<init> : (Ljava/lang/String;)V>
+// 将堆中的 String 对象引用存储到局部变量表
+9 astore_1
+// 返回，结束方法
+10 return
+```
+
+`ldc (load constant)` 指令的确是从常量池中加载各种类型的常量，包括字符串常量、整数常量、浮点数常量，甚至类引用等。对于字符串常量，`ldc` 指令的行为如下：
+1. **从常量池加载字符串**：`ldc` 首先检查字符串常量池中是否已经有内容相同的字符串对象。
+2. **复用已有字符串对象**：如果字符串常量池中已经存在内容相同的字符串对象，`ldc` 会将该对象的引用加载到操作数栈上。
+3. **没有则创建新对象并加入常量池**：如果字符串常量池中没有相同内容的字符串对象，JVM 会在常量池中创建一个新的字符串对象，并将其引用加载到操作数栈中。
+```java
+// 字符串常量池中已存在字符串对象“abc”
+String s1 = "abc";
+// 下面这段代码只会在堆中创建 1 个字符串对象“abc”
+String s2 = new String("abc");
+
+0 ldc #2 <abc>
+2 astore_1
+3 new #3 <java/lang/String>
+6 dup
+7 ldc #2 <abc>
+9 invokespecial #4 <java/lang/String.<init> : (Ljava/lang/String;)V>
+12 astore_2
+13 return
+```
+
+7 这个位置的 `ldc` 命令不会在堆中创建新的字符串对象“abc”，这是因为 0 这个位置已经执行了一次 `ldc` 命令，已经在堆中创建过一次字符串对象“abc”了。7 这个位置执行 `ldc` 命令会直接返回字符串常量池中字符串对象“abc”对应的引用。
+### String#intern 方法有什么作用?
+`String.intern()` 是一个 `native` (本地) 方法，用来处理字符串常量池中的字符串对象引用。它的工作流程可以概括为以下两种情况：
+1. **常量池中已有相同内容的字符串对象**：如果字符串常量池中已经有一个与调用 `intern()` 方法的字符串内容相同的 `String` 对象，`intern()` 方法会直接返回常量池中该对象的引用。
+2. **常量池中没有相同内容的字符串对象**：如果字符串常量池中还没有一个与调用 `intern()` 方法的字符串内容相同的对象，`intern()` 方法会将当前字符串对象的引用添加到字符串常量池中，并返回该引用。
+总结：
+- `intern()` 方法的主要作用是确保字符串引用在常量池中的唯一性。
+- 当调用 `intern()` 时，如果常量池中已经存在相同内容的字符串，则返回常量池中已有对象的引用；否则，将该字符串添加到常量池并返回其引用。
+```java
+// s1 指向字符串常量池中的 "Java" 对象
+String s1 = "Java";
+// s2 也指向字符串常量池中的 "Java" 对象，和 s1 是同一个对象
+String s2 = s1.intern();
+// 在堆中创建一个新的 "Java" 对象，s3 指向它
+String s3 = new String("Java");
+// s4 指向字符串常量池中的 "Java" 对象，和 s1 是同一个对象
+String s4 = s3.intern();
+// s1 和 s2 指向的是同一个常量池中的对象
+System.out.println(s1 == s2); // true
+// s3 指向堆中的对象，s4 指向常量池中的对象，所以不同
+System.out.println(s3 == s4); // false
+// s1 和 s4 都指向常量池中的同一个对象
+System.out.println(s1 == s4); // true
+```
+### String 类型的变量和常量做“+”运算时发生了什么？
+字符串不加 `final` 关键字拼接的情况（JDK1.8）：
+```java
+String str1 = "str";
+String str2 = "ing";
+String str3 = "str" + "ing";//常量池对象
+String str4 = str1 + str2;//堆对象
+String str5 = "string";//常量池对象
+System.out.println(str3 == str4);//false
+System.out.println(str3 == str5);//true
+System.out.println(str4 == str5);//false
+```
+**注意**：比较 String 字符串的值是否相等，可以使用 `equals()` 方法。 `String` 中的 `equals` 方法是被重写过的。`Object` 的 `equals` 方法是比较的对象的内存地址，而 `String` 的 `equals` 方法比较的是字符串的值是否相等。如果你使用 == 比较两个字符串是否相等的话，IDEA 还是提示你使用 `equals()` 方法替换。
+**对于编译期可以确定值的字符串，也就是常量字符串 ，jvm 会将其存入字符串常量池。并且，字符串常量拼接得到的字符串常量在编译阶段就已经被存放字符串常量池，这个得益于编译器的优化。**
+在编译过程中，Javac 编译器（下文中统称为编译器）会进行一个叫做 **常量折叠(Constant Folding)** 的代码优化。
+常量折叠会把常量表达式的值求出来作为常量嵌在最终生成的代码中，这是 Javac 编译器会对源代码做的极少量优化措施之一(代码优化几乎都在即时编译器JIT中进行)。
+对于 `String str3 = "str" + "ing";` 编译器会优化成 `String str3 = "string";` 。
+
+并不是所有的常量都会进行折叠，只有编译器在程序编译期就可以确定值的常量才可以：
+- 基本数据类型( `byte`、`boolean`、`short`、`char`、`int`、`float`、`long`、`double`)以及字符串常量。
+- `final` 修饰的基本数据类型和字符串变量
+- 字符串通过"+"拼接得到的字符串、基本数据类型之间算数运算（加减乘除）、基本数据类型的位运算（<<、>>、>>> ）
+
+**引用的值在程序编译期是无法确定的，编译器无法对其进行优化。**
+
+对象引用和“+”的字符串拼接方式，实际上是通过 `StringBuilder` 调用 `append()` 方法实现的，拼接完成之后调用 `toString()` 得到一个 `String` 对象 。
+
+字符串使用 `final` 关键字声明之后，可以让编译器当做常量来处理。
+```java
+final String str1 = "str";
+final String str2 = "ing";
+// 下面两个表达式其实是等价的
+String c = "str" + "ing";// 常量池中的对象
+String d = str1 + str2; // 常量池中的对象
+System.out.println(c == d);// true
+```
+被 `final` 关键字修饰之后的 `String` 会被编译器当做常量来处理，编译器在程序编译期就可以确定它的值，其效果就相当于访问常量。
+
+如果 ，编译器在运行时才能知道其确切值的话，就无法对其优化。
+示例代码（`str2` 在运行时才能确定其值）：
+```java
+final String str1 = "str";
+final String str2 = getStr();
+String c = "str" + "ing";// 常量池中的对象
+String d = str1 + str2; // 在堆上创建的新的对象
+System.out.println(c == d);// false
+public static String getStr() {
+      return "ing";
+}
+```
