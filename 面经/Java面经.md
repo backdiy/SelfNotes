@@ -968,3 +968,90 @@ public boolean equals(Object anObject) {
 **总结**：
 - `equals` 方法判断两个对象是相等的，那这两个对象的 `hashCode` 值也要相等。
 - 两个对象有相同的 `hashCode` 值，他们也不一定是相等的（哈希碰撞）。
+## String
+### String、StringBuffer、StringBuilder 的区别？
+#### 可变性
+`String` 是[不可变](https://www.zhihu.com/question/20618891/answer/114125846)的。
+
+`StringBuilder` 与 `StringBuffer` 都继承自 `AbstractStringBuilder` 类，在 `AbstractStringBuilder` 中也是使用字符数组保存字符串，不过没有使用 `final` 和 `private` 关键字修饰，最关键的是这个 `AbstractStringBuilder` 类还提供了很多修改字符串的方法比如 `append` 方法。
+```java
+abstract class AbstractStringBuilder implements Appendable, CharSequence {
+    char[] value;
+    public AbstractStringBuilder append(String str) {
+        if (str == null)
+            return appendNull();
+        int len = str.length();
+        ensureCapacityInternal(count + len);
+        str.getChars(0, len, value, count);
+        count += len;
+        return this;
+    }
+    //...
+}
+```
+#### 线程安全性
+`String` 中的对象是不可变的，也就可以理解为常量，线程安全。`AbstractStringBuilder` 是 `StringBuilder` 与 `StringBuffer` 的公共父类，定义了一些字符串的基本操作，如 `expandCapacity`、`append`、`insert`、`indexOf` 等公共方法。`StringBuffer` 对方法加了同步锁或者对调用的方法加了同步锁，所以是线程安全的。`StringBuilder` 并没有对方法进行加同步锁，所以是非线程安全的。
+
+`String` 中的对象是不可变的，也就可以理解为常量，线程安全。
+`AbstractStringBuilder` 是 `StringBuilder` 与 `StringBuffer` 的公共父类，定义了一些字符串的基本操作，如 `expandCapacity`、`append`、`insert`、`indexOf` 等公共方法。
+`StringBuffer` 对方法加了同步锁或者对调用的方法加了同步锁，所以是线程安全的。`StringBuilder` 并没有对方法进行加同步锁，所以是非线程安全的。
+#### 性能
+每次对 `String` 类型进行改变的时候，都会生成一个新的 `String` 对象，然后将指针指向新的 `String` 对象。
+`StringBuffer` 每次都会对 `StringBuffer` 对象本身进行操作，而不是生成新的对象并改变对象引用。
+相同情况下使用 `StringBuilder` 相比使用 `StringBuffer` 能获得 10%~15% 左右的性能提升，却要冒多线程不安全的风险。
+
+**对于三者使用的总结：**
+- 操作少量的数据: 适用 `String`
+- 单线程操作字符串缓冲区下操作大量数据: 适用 `StringBuilder`
+- 多线程操作字符串缓冲区下操作大量数据: 适用 `StringBuffer`
+### String 为什么是不可变的?
+- 保存字符串的数组被 `final` 修饰且为私有的，并且`String` 类没有提供/暴露修改这个字符串的方法。
+- `String` 类被 `final` 修饰导致其不能被继承，进而避免了子类破坏 `String` 不可变。
+在 Java 9 之后，`String`、`StringBuilder` 与 `StringBuffer` 的实现改用 `byte` 数组存储字符串。新版的 String 其实支持两个编码方案：Latin-1 和 UTF-16。如果字符串中包含的汉字没有超过 Latin-1 可表示范围内的字符，那就会使用 Latin-1 作为编码方案。Latin-1 编码方案下，`byte` 占一个字节(8 位)，`char` 占用 2 个字节（16），`byte` 相较 `char` 节省一半的内存空间。
+### 字符串拼接用“+” 还是 StringBuilder?
+Java 语言本身并不支持运算符重载，“+”和“+=”是专门为 String 类重载过的运算符，也是 Java 中仅有的两个重载过的运算符。
+```java
+String str1 = "he";
+String str2 = "llo";
+String str3 = "world";
+String str4 = str1 + str2 + str3;
+```
+上面的代码对应的字节码如下：
+![](Java面经.assets/image%2012.png)
+可以看出，字符串对象通过“+”的字符串拼接方式，实际上是通过 `StringBuilder` 调用 `append()` 方法实现的，拼接完成之后调用 `toString()` 得到一个 `String` 对象 。
+不过，在循环内使用“+”进行字符串的拼接的话，存在比较明显的缺陷：**编译器不会创建单个 `StringBuilder` 以复用，会导致创建过多的 `StringBuilder` 对象**。
+```java
+String[] arr = {"he", "llo", "world"};
+String s = "";
+for (int i = 0; i < arr.length; i++) {
+    s += arr[i];
+}
+System.out.println(s);
+```
+`StringBuilder` 对象是在循环内部被创建的，这意味着每循环一次就会创建一个 `StringBuilder` 对象。
+![](Java面经.assets/image%2013.png)
+如果直接使用 StringBuilder 对象进行字符串拼接的话，就不会存在这个问题了。
+```java
+String[] arr = {"he", "llo", "world"};
+StringBuilder s = new StringBuilder();
+for (String value : arr) {
+    s.append(value);
+}
+System.out.println(s);
+```
+![](Java面经.assets/image%2014.png)
+如果使用 IDEA 的话，IDEA 自带的代码检查机制也会提示修改代码。
+
+在 JDK 9 中，字符串相加“+”改为用动态方法 `makeConcatWithConstants()` 来实现，通过提前分配空间从而减少了部分临时对象的创建。然而这种优化主要针对简单的字符串拼接，如： `a+b+c` 。对于循环中的大量拼接操作，仍然会逐个动态分配内存（类似于两个两个 append 的概念），并不如手动使用 StringBuilder 来进行拼接效率高。这个改进是 JDK9 的 [JEP 280](https://openjdk.org/jeps/280) 提出的，关于这部分改进的详细介绍，推荐阅读这篇文章：还在无脑用 [StringBuilder？来重温一下字符串拼接吧](https://juejin.cn/post/7182872058743750715) 以及参考 [issue#2442](https://github.com/Snailclimb/JavaGuide/issues/2442)。
+### String#equals() 和 Object#equals() 有何区别？
+`String` 中的 `equals` 方法是被重写过的，比较的是 String 字符串的值是否相等。 `Object` 的 `equals` 方法是比较的对象的内存地址。
+### 字符串常量池的作用了解吗？
+**字符串常量池** 是 JVM 为了提升性能和减少内存消耗针对字符串（String 类）专门开辟的一块区域，主要目的是为了避免字符串的重复创建。
+```java
+// 在字符串常量池中创建字符串对象 ”ab“
+// 将字符串对象 ”ab“ 的引用赋值给 aa
+String aa = "ab";
+// 直接返回字符串常量池中字符串对象 ”ab“，赋值给引用 bb
+String bb = "ab";
+System.out.println(aa==bb); // true
+```
