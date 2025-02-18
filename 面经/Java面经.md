@@ -4315,8 +4315,24 @@ public class GenericTypes {
 上面这段代码，有两个重载的函数，因为他们的参数类型不同，一个是`List<String>`另一个是`List<Integer>` ，但是，这段代码是编译通不过的。因为我们前面讲过，参数`List<Integer>`和`List<String>`编译之后都被擦除了，变成了一样的原生类型 List，擦除动作导致这两个方法的特征签名变得一模一样。
 
 **二、当泛型遇到 catch**
-泛型的类型参数不能用在 Java 异常处理的 catch 语句中。因为异常处理是由 JVM 在运行时刻来进行的。由于类型信息被擦除，JVM 是无法区分两个异常类型`MyException<String>`和`MyException<Integer>`的
+泛型的类型参数不能用在 Java 异常处理的 catch 语句中。因为异常处理是由 JVM 在运行时刻来进行的。由于类型信息被擦除，JVM 是无法区分两个异常类型`MyException<String>`和`MyException<Integer>`的。
+比如：
+```java
+public class MyException<T> extends Exception {}
 
+public class Test {
+    public static void main(String[] args) {
+        try {
+            throw new MyException<String>("String exception");
+        } catch (MyException<String> e) {
+            System.out.println("Caught MyException<String>");
+        } catch (MyException<Integer> e) {
+            System.out.println("Caught MyException<Integer>");
+        }
+    }
+}
+在运行时，JVM 只能看到MyException，而无法区分MyException<String>和MyException<Integer>。因此，JVM无法正确地将异常匹配到对应的catch块
+```
 **三、当泛型内包含静态变量**
 ```java
 public class StaticTest{
