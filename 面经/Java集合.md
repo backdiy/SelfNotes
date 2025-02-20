@@ -461,6 +461,7 @@ public HashMap(int initialCapacity, float loadFactor) {
 }
 ```
 下面这个方法保证了 `HashMap` 总是使用 2 的幂作为哈希表的大小。
+n为cap所有位都为1的情况，然后n+1则为2的幂。如果cap = 2<sup>31</sup>-1，则n最大为2<sup>30</sup>，如果cap<=0，则n<0
 ```java
 /**
  * Returns a power of two size for the given target capacity.
