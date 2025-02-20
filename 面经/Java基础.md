@@ -33,7 +33,7 @@
 如果需要编写、编译 Java 程序或使用 Java API 文档，就需要安装 JDK。某些需要 Java 特性的应用程序（如 JSP 转换为 Servlet 或使用反射）也可能需要 JDK 来编译和运行 Java 代码。因此，即使不进行 Java 开发工作，有时也可能需要安装 JDK。
 
 下图清晰展示了 JDK、JRE 和 JVM 的关系。
-![](Java面经.assets/image.png)
+![](Java基础.assets/image.png)
 从 JDK 9 开始，就不需要区分 JDK 和 JRE 的关系了，在引入了模块系统之后，JDK 被重新组织成 94 个模块。Java 应用可以通过新增的 jlink 工具，创建出只包含所依赖的 JDK 模块的自定义运行时镜像。这样可以极大的减少 Java 运行时环境的大小。
 
 定制的、模块化的 Java 运行时映像有助于简化 Java 应用的部署和节省内存并增强安全性和可维护性。这对于满足现代应用程序架构的需求，如虚拟化、容器化、微服务和云原生开发，是非常重要的。
@@ -41,18 +41,18 @@
 在 Java 中，JVM 可以理解的代码就叫做字节码（即扩展名为 `.class` 的文件），它不面向任何特定的处理器，只面向虚拟机。Java 语言通过字节码的方式，在一定程度上解决了传统解释型语言执行效率低的问题，同时又保留了解释型语言可移植的特点。所以， Java 程序运行时相对来说还是高效的（但是和 C、 C++，Rust，Go 等语言还是有一定差距的），而且，由于字节码并不针对一种特定的机器，因此，Java 程序无须重新编译便可在多种不同操作系统的计算机上运行。
 
 Java程序从源代码到运行的流程：
-![](Java面经.assets/image%201.png)
+![](Java基础.assets/image%201.png)
 
 在.class到机器码之间，JVM 类加载器首先加载字节码文件，然后通过解释器逐行解释执行，这种方式的执行速度会相对比较慢。而且，有些方法和代码块是经常需要被调用的(也就是所谓的热点代码)，所以后面引进了 **JIT（Just in Time Compilation）** 编译器，而 JIT 属于运行时编译。当 JIT 编译器完成第一次编译后，其会将字节码对应的机器码保存下来，下次可以直接使用。机器码的运行效率肯定是高于 Java 解释器，这也解释了为什么经常会说 **Java 是编译与解释共存的语言** 。
 > 🌈 拓展阅读：
 > - [基本功 | Java 即时编译器原理解析及实践 - 美团技术团队](https://tech.meituan.com/2020/10/22/java-jit-practice-in-meituan.html)
 > - [基于静态编译构建微服务应用 - 阿里巴巴中间件](https://mp.weixin.qq.com/s/4haTyXUmh8m-dBQaEzwDJw)
-![](Java面经.assets/image%202.png)
+![](Java基础.assets/image%202.png)
 
 HotSpot 采用了惰性评估(Lazy Evaluation)的做法，根据二八定律，消耗大部分系统资源的只有那一小部分的代码（热点代码），而这也就是 JIT 所需要编译的部分。JVM 会根据代码每次被执行的情况收集信息并相应地做出一些优化，因此执行的次数越多，它的速度就越快。
 
 下面这张图是 JVM 的大致结构模型：
-![](Java面经.assets/image%203.png)
+![](Java基础.assets/image%203.png)
 ### 为什么说 Java 语言“编译与解释并存”？
 可以将高级编程语言按照程序的执行方式分为两种：
 - **编译型**：[编译型语言](https://zh.wikipedia.org/wiki/%E7%B7%A8%E8%AD%AF%E8%AA%9E%E8%A8%80) 会通过[编译器](https://zh.wikipedia.org/wiki/%E7%B7%A8%E8%AD%AF%E5%99%A8)将源代码一次性翻译成可被该平台执行的机器码。一般情况下，编译语言的执行速度比较快，开发效率比较低。常见的编译性语言有 C、C++、Go、Rust 等等。
@@ -65,7 +65,7 @@ HotSpot 采用了惰性评估(Lazy Evaluation)的做法，根据二八定律，�
 因为 Java 语言既具有编译型语言的特征，也具有解释型语言的特征。因为 Java 程序要经过先编译，后解释两个步骤，由 Java 编写的程序（`.java`文件）需要先经过编译步骤，生成字节码（`.class` 文件），这种字节码必须由 Java 解释器来解释执行。
 ### AOT 有什么优点？为什么不全部使用 AOT 呢？
 JDK 9 引入了一种新的编译模式 **AOT(Ahead of Time Compilation)** 。和 JIT 不同的是，这种编译模式会在程序被执行前就将其编译成机器码，属于静态编译（C、 C++，Rust，Go 等语言就是静态编译）。AOT 避免了 JIT 预热等各方面的开销，可以提高 Java 程序的启动速度，避免预热时间长。并且，AOT 还能减少内存占用和增强 Java 程序的安全性（AOT 编译后的代码不容易被反编译和修改），特别适合云原生场景。
-![](Java面经.assets/image%204.png)
+![](Java基础.assets/image%204.png)
 可以看出，AOT 的主要优势在于启动时间、内存占用和打包体积。JIT 的主要优势在于具备更高的极限处理能力，可以降低请求的最大延迟。
 
 [GraalVM](https://www.graalvm.org/) 是一种高性能的 JDK（完整的 JDK 发行版本），它可以运行 Java 和其他 JVM 语言，以及 JavaScript、Python 等非 JVM 语言。 GraalVM 不仅能提供 AOT 编译，还能提供 JIT 编译。
@@ -111,7 +111,7 @@ if ((employee.flags & HOURLY_FLAG) && (employee.age > 65))
 if (employee.isEligibleForFullBenefits())
 ```
 ### Java 语言关键字有哪些？
-![](Java面经.assets/image%205.png)
+![](Java基础.assets/image%205.png)
 所有的[关键字](https://docs.oracle.com/javase/tutorial/java/nutsandbolts/_keywords.html)都是小写的，在 IDE 中会以特殊颜色显示。
 `default` 这个关键字很特殊，既属于程序控制，也属于类，方法和变量修饰符，还属于访问控制。
 - 在程序控制中，当在 `switch` 中匹配不到任何情况时，可以使用 `default` 来编写默认匹配的情况。
@@ -192,7 +192,7 @@ Java 中有 8 种基本数据类型，分别为：
 - 1 种字符类型：`char`
 - 1 种布尔型：`boolean`。
 这 8 种基本数据类型的默认值以及所占空间的大小如下：
-![](Java面经.assets/image%206.png)
+![](Java基础.assets/image%206.png)
 Java 的每种基本类型所占存储空间的大小不会像其他大多数语言那样随机器硬件架构的变化而变化。这种所占存储空间大小的不变性是 Java 程序比用其他大多数语言编写的程序更具可移植性的原因之一。
 **注意：**
 1. Java 里使用 `long` 类型的数据一定要在数值后面加上 **L**，否则将作为整型解析。
@@ -564,7 +564,7 @@ Java 允许重载任何方法， 而不只是构造器方法。
 2. 如果父类方法访问修饰符为 `private/final/static` 则子类就不能重写该方法，但是被 `static` 修饰的方法能够被再次声明。
 3. 构造方法无法被重写
 综上：**重写就是子类对父类方法的重新改造，外部样子不能改变，内部逻辑可以改变。**
-![](Java面经.assets/image%207.png)
+![](Java基础.assets/image%207.png)
 **方法的重写要遵循“两同两小一大”**
 - “两同”即方法名相同、形参列表相同；
 - “两小”指的是子类方法返回值类型应比父类方法返回值类型更小或相等，子类方法声明抛出的异常类应比父类方法声明抛出的异常类更小或相等；
@@ -661,7 +661,7 @@ public class VariableLengthArgument {
 POP 的编程方式通常更为简单和直接，适合处理一些较简单的任务。
 
 POP 和 OOP 的性能差异主要取决于它们的运行机制，而不仅仅是编程范式本身。因此，简单地比较两者的性能是一个常见的误区（相关 issue : [面向过程：面向过程性能比面向对象高？？](https://github.com/Snailclimb/JavaGuide/issues/431) ）。
-![](Java面经.assets/image%208.png)
+![](Java基础.assets/image%208.png)
 ### 创建一个对象用什么运算符?对象实体与对象引用有何不同?
 **new 运算符**，new 创建对象实例（对象实例在堆内存中），对象引用指向对象实例（对象引用存放在栈内存中）。
 - 一个对象引用可以指向 0 个或 1 个对象（一根绳子可以不系气球，也可以系一个气球）；
@@ -839,7 +839,7 @@ System.out.println(person1.getAddress() == person1Copy.getAddress());
 
 #### 引用拷贝
 简单来说，引用拷贝就是两个不同的引用指向同一个对象。
-![](Java面经.assets/image%209.png)
+![](Java基础.assets/image%209.png)
 ## Object
 ### Object 类的常见方法有哪些？
 Object 类是一个特殊的类，是所有类的父类，主要提供了以下 11 个方法：
@@ -940,11 +940,11 @@ public boolean equals(Object anObject) {
 ```
 ### hashCode() 有什么用？
 `hashCode()` 的作用是获取哈希码（`int` 整数），也称为散列码。这个哈希码的作用是确定该对象在哈希表中的索引位置。
-![](Java面经.assets/image%2010.png)
+![](Java基础.assets/image%2010.png)
 `hashCode()` 定义在 JDK 的 `Object` 类中，这就意味着 Java 中的任何类都包含有 `hashCode()` 函数。另外需要注意的是：`Object` 的 `hashCode()` 方法是本地方法，也就是用 C 语言或 C++ 实现的。
 注意：该方法在 **Oracle OpenJDK8** 中默认是 "使用线程局部状态来实现 Marsaglia's xor-shift 随机数生成", 并不是 "地址" 或者 "地址转换而来", 不同 JDK/VM 可能不同。在 **Oracle OpenJDK8** 中有六种生成方式 (其中第五种是返回地址), 通过添加 VM 参数: -XX:hashCode=4 启用第五种。
 以下是`-XX:hashCode`支持的选项及其含义：
-![](Java面经.assets/image%2011.png)
+![](Java基础.assets/image%2011.png)
 ### 为什么要有 hashCode？
 以`HashSet`为例：当你对象加入 `HashSet` 时，`HashSet` 会先计算对象的 `hashCode` 值来判断对象加入的位置，同时也会与其他已经加入的对象的 `hashCode` 值作比较，如果没有相符的 `hashCode`，`HashSet` 会假设对象没有重复出现。但是如果发现有相同 `hashCode` 值的对象，这时会调用 `equals()` 方法来检查 `hashCode` 相等的对象是否真的相同。如果两者相同，`HashSet` 就不会让其加入操作成功。如果不同的话，就会重新散列到其他位置。这样我们就大大减少了 `equals` 的次数，相应就大大提高了执行速度。
 
@@ -1019,7 +1019,7 @@ String str3 = "world";
 String str4 = str1 + str2 + str3;
 ```
 上面的代码对应的字节码如下：
-![](Java面经.assets/image%2012.png)
+![](Java基础.assets/image%2012.png)
 可以看出，字符串对象通过“+”的字符串拼接方式，实际上是通过 `StringBuilder` 调用 `append()` 方法实现的，拼接完成之后调用 `toString()` 得到一个 `String` 对象 。
 不过，在循环内使用“+”进行字符串的拼接的话，存在比较明显的缺陷：**编译器不会创建单个 `StringBuilder` 以复用，会导致创建过多的 `StringBuilder` 对象**。
 ```java
@@ -1031,7 +1031,7 @@ for (int i = 0; i < arr.length; i++) {
 System.out.println(s);
 ```
 `StringBuilder` 对象是在循环内部被创建的，这意味着每循环一次就会创建一个 `StringBuilder` 对象。
-![](Java面经.assets/image%2013.png)
+![](Java基础.assets/image%2013.png)
 如果直接使用 StringBuilder 对象进行字符串拼接的话，就不会存在这个问题了。
 ```java
 String[] arr = {"he", "llo", "world"};
@@ -1041,7 +1041,7 @@ for (String value : arr) {
 }
 System.out.println(s);
 ```
-![](Java面经.assets/image%2014.png)
+![](Java基础.assets/image%2014.png)
 如果使用 IDEA 的话，IDEA 自带的代码检查机制也会提示修改代码。
 
 在 JDK 9 中，字符串相加“+”改为用动态方法 `makeConcatWithConstants()` 来实现，通过提前分配空间从而减少了部分临时对象的创建。然而这种优化主要针对简单的字符串拼接，如： `a+b+c` 。对于循环中的大量拼接操作，仍然会逐个动态分配内存（类似于两个两个 append 的概念），并不如手动使用 StringBuilder 来进行拼接效率高。这个改进是 JDK9 的 [JEP 280](https://openjdk.org/jeps/280) 提出的，关于这部分改进的详细介绍，推荐阅读这篇文章：还在无脑用 [StringBuilder？来重温一下字符串拼接吧](https://juejin.cn/post/7182872058743750715) 以及参考 [issue#2442](https://github.com/Snailclimb/JavaGuide/issues/2442)。
@@ -1184,7 +1184,7 @@ public static String getStr() {
 ```
 ## 异常
 **Java 异常类层次结构图概览**：
-![](Java面经.assets/image%2015.png)
+![](Java基础.assets/image%2015.png)
 ### Exception 和 Error 有什么区别？
 在 Java 中，所有的异常都有一个共同的祖先 `java.lang` 包中的 `Throwable` 类。`Throwable` 类有两个重要的子类:
 - **`Exception`** :程序本身可以处理的异常，可以通过 `catch` 来进行捕获。`Exception` 又可以分为 Checked Exception (受检查异常，必须处理) 和 Unchecked Exception (不受检查异常，可以不处理)。
@@ -1192,7 +1192,7 @@ public static String getStr() {
 ### Checked Exception 和 Unchecked Exception 有什么区别？
 **Checked Exception** 即 受检查异常 ，Java 代码在编译过程中，如果受检查异常没有被 `catch`或者`throws` 关键字处理的话，就没办法通过编译。
 比如下面这段 IO 操作的代码：
-![](Java面经.assets/image%2016.png)
+![](Java基础.assets/image%2016.png)
 除了`RuntimeException`及其子类以外，其他的`Exception`类及其子类都属于受检查异常 。常见的受检查异常有：IO 相关的异常、`ClassNotFoundException`、`SQLException`...。
 **Unchecked Exception** 即 **不受检查异常** ，Java 代码在编译过程中 ，我们即使不处理不受检查异常也可以正常通过编译。
 ### Throwable 类常用方法有哪些？
@@ -1449,10 +1449,10 @@ SPI 即 Service Provider Interface ，字面意思就是：“服务提供者的
 SPI 将服务接口和具体的服务实现分离开来，将服务调用方和服务实现者解耦，能够提升程序的扩展性、可维护性。修改或者替换服务实现并不需要修改调用方。
 
 很多框架都使用了 Java 的 SPI 机制，比如：Spring 框架、数据库加载驱动、日志接口、以及 Dubbo 的扩展实现等等。
-![](Java面经.assets/image%2017.png)
+![](Java基础.assets/image%2017.png)
 ### SPI 和 API 有什么区别？
 从广义上来说它们都属于接口，而且很容易混淆。下面先用一张图说明一下：
-![](Java面经.assets/image%2018.png)
+![](Java基础.assets/image%2018.png)
 一般模块之间都是通过接口进行通讯，因此我们在服务调用方和服务实现方（也称服务提供者）之间引入一个“接口”。
 
 - 当实现方提供了接口和实现，我们可以通过调用实现方的接口从而拥有实现方给我们提供的能力，这就是 **API**。这种情况下，接口和实现都是放在实现方的包中。调用方通过接口调用实现方的功能，而不需要关心具体的实现细节。
@@ -1480,7 +1480,7 @@ SPI 将服务接口和具体的服务实现分离开来，将服务调用方和�
 >**序列化**（serialization）在计算机科学的数据处理中，是指将数据结构或对象状态转换成可取用格式（例如存成文件，存于缓冲，或经由网络中发送），以留待后续在相同或另一台计算机环境中，能恢复原先状态的过程。依照序列化格式重新获取字节的结果时，可以利用它来产生与原始对象相同语义的副本。对于许多对象，像是使用大量引用的复杂对象，这种序列化重建的过程并不容易。面向对象中的对象序列化，并不概括之前原始对象所关系的函数。这种过程也称为对象编组（marshalling）。从一系列字节提取数据结构的反向操作，是反序列化（也称为解编组、deserialization、unmarshalling）。
 
 综上：**序列化的主要目的是通过网络传输对象或者说是将对象存储到文件系统、数据库、内存中。**
-![](Java面经.assets/image%2019.png)
+![](Java基础.assets/image%2019.png)
 **序列化协议对应于 TCP/IP 4 层模型的哪一层？**
 我们知道网络通信的双方必须要采用和遵守相同的协议。TCP/IP 四层模型是下面这样的，序列化协议属于哪一层呢？
 1. 应用层
@@ -1589,7 +1589,7 @@ num2 = 20
 ```
 解析：
 在 `swap()` 方法中，`a`、`b` 的值进行交换，并不会影响到 `num1`、`num2`。因为，`a`、`b` 的值，只是从 `num1`、`num2` 的复制过来的。也就是说，a、b 相当于 `num1`、`num2` 的副本，副本的内容无论怎么修改，都不会影响到原件本身。
-![](Java面经.assets/image%2020.png)
+![](Java基础.assets/image%2020.png)
 通过上面例子，我们已经知道了一个方法不能修改一个基本数据类型的参数，而对象引用作为参数就不一样，请看案例 2。
 #### 案例 2：传递引用类型参数 1
 ```java
@@ -1691,7 +1691,7 @@ Java 中将实参传递给方法（或函数）的方式是 **值传递**：
 >**序列化**（serialization）在计算机科学的数据处理中，是指将数据结构或对象状态转换成可取用格式（例如存成文件，存于缓冲，或经由网络中发送），以留待后续在相同或另一台计算机环境中，能恢复原先状态的过程。依照序列化格式重新获取字节的结果时，可以利用它来产生与原始对象相同语义的副本。对于许多对象，像是使用大量引用的复杂对象，这种序列化重建的过程并不容易。面向对象中的对象序列化，并不概括之前原始对象所关系的函数。这种过程也称为对象编组（marshalling）。从一系列字节提取数据结构的反向操作，是反序列化（也称为解编组、deserialization、unmarshalling）。
 
 综上：**序列化的主要目的是通过网络传输对象或者说是将对象存储到文件系统、数据库、内存中。**
-![](Java面经.assets/image%2019.png)
+![](Java基础.assets/image%2019.png)
 **序列化协议对应于 TCP/IP 4 层模型的哪一层？**
 我们知道网络通信的双方必须要采用和遵守相同的协议。TCP/IP 四层模型是下面这样的，序列化协议属于哪一层呢？
 1. 应用层
@@ -1827,11 +1827,11 @@ protostuff 基于 Google protobuf，但是提供了更多的功能和更简易�
 GitHub 地址：[https://github.com/protostuff/protostuff](https://github.com/protostuff/protostuff)。
 ### Hessian
 Hessian 是一个轻量级的，自定义描述的二进制 RPC 协议。Hessian 是一个比较老的序列化实现了，并且同样也是跨语言的。
-![](Java面经.assets/image%2021.png)
+![](Java基础.assets/image%2021.png)
 Dubbo2.x 默认启用的序列化方式是 Hessian2 ,但是，Dubbo 对 Hessian2 进行了修改，不过大体结构还是差不多。
 ### 总结
 Kryo 是专门针对 Java 语言序列化方式并且性能非常好，如果你的应用是专门针对 Java 语言的话可以考虑使用，并且 Dubbo 官网的一篇文章中提到说推荐使用 Kryo 作为生产环境的序列化方式。(文章地址：[https://cn.dubbo.apache.org/zh-cn/docsv2.7/user/serialization/](https://cn.dubbo.apache.org/zh-cn/docsv2.7/user/serialization/)）。
-![](Java面经.assets/image%2022.png)
+![](Java基础.assets/image%2022.png)
 除了上面介绍到的序列化方式的话，还有像 Thrift，Avro 这些。
 ## 泛型&通配符详解
 ## Java 反射机制详解
@@ -1984,7 +1984,7 @@ value is JavaGuide
 **代理模式的主要作用是扩展目标对象的功能，比如说在目标对象的某个方法执行前后你可以增加一些自定义的操作。**
 
 举个例子：新娘找来了自己的姨妈来代替自己处理新郎的提问，新娘收到的提问都是经过姨妈处理过滤之后的。姨妈在这里就可以看作是代理你的代理对象，代理的行为（方法）是接收和回复新郎的提问。
-![](Java面经.assets/image%2023.png)
+![](Java基础.assets/image%2023.png)
 
 代理模式有静态代理和动态代理两种实现方式。
 ### 静态代理
@@ -2295,7 +2295,7 @@ System.out.println(a == b);// false
 通常情况下，大部分需要浮点数精确运算结果的业务场景（比如涉及到钱的场景）都是通过 `BigDecimal` 来做的。
 
 《阿里巴巴 Java 开发手册》中提到：**浮点数之间的等值判断，基本数据类型不能用 == 来比较，包装数据类型不能用 equals 来判断。**
-![](Java面经.assets/image%2024.png)
+![](Java基础.assets/image%2024.png)
 想要解决浮点数运算精度丢失这个问题，可以直接使用 `BigDecimal` 来定义浮点数的值，然后再进行浮点数的运算操作即可。
 ```java
 BigDecimal a = new BigDecimal("1.0");
@@ -2311,7 +2311,7 @@ System.out.println(x.compareTo(y));// 0
 #### 创建
 我们在使用 `BigDecimal` 时，为了防止精度丢失，推荐使用它的`BigDecimal(String val)`构造方法或者 `BigDecimal.valueOf(double val)` 静态方法来创建对象。
 《阿里巴巴 Java 开发手册》对这部分内容也有提到，如下图所示：
-![](Java面经.assets/image%2025.png)
+![](Java基础.assets/image%2025.png)
 #### 加减乘除
 `add` 方法用于将两个 `BigDecimal` 对象相加，`subtract` 方法用于将两个 `BigDecimal` 对象相减。`multiply` 方法用于将两个 `BigDecimal` 对象相乘，`divide` 方法用于将两个 `BigDecimal` 对象相除。
 ```java
@@ -2366,7 +2366,7 @@ System.out.println(n);// 1.255
 ```
 ### BigDecimal 等值比较问题
 《阿里巴巴 Java 开发手册》中提到：
-![](Java面经.assets/image%2026.png)
+![](Java基础.assets/image%2026.png)
 `BigDecimal` 使用 `equals()` 方法进行等值比较出现问题的代码示例：
 ```java
 BigDecimal a = new BigDecimal("1");
@@ -2375,7 +2375,7 @@ System.out.println(a.equals(b));//false
 ```
 这是因为 `equals()` 方法不仅仅会比较值的大小（value）还会比较精度（scale），而 `compareTo()` 方法比较的时候会忽略精度。
 1.0 的 scale 是 1，1 的 scale 是 0，因此 `a.equals(b)` 的结果是 false。
-![](Java面经.assets/image%2027.png)
+![](Java基础.assets/image%2027.png)
 `compareTo()` 方法可以比较两个 `BigDecimal` 的值，如果相等就返回 0，如果第 1 个数比第 2 个数大则返回 1，反之返回-1。
 ```java
 BigDecimal a = new BigDecimal("1");
@@ -2562,7 +2562,7 @@ public class BigDecimalUtil {
 }
 ```
 相关 issue：[建议对保留规则设置为 RoundingMode.HALF_EVEN,即四舍六入五成双,#2129](https://github.com/Snailclimb/JavaGuide/issues/2129) 。
-![](Java面经.assets/image%2028.png)
+![](Java基础.assets/image%2028.png)
 ### 总结
 浮点数没有办法用二进制精确表示，因此存在精度丢失的风险。
 
@@ -2575,7 +2575,7 @@ public class BigDecimalUtil {
 `Unsafe` 是位于 `sun.misc` 包下的一个类，主要提供一些用于执行低级别、不安全操作的方法，如直接访问系统内存资源、自主管理内存资源等，这些方法在提升 Java 运行效率、增强 Java 语言底层资源操作能力方面起到了很大的作用。但由于 `Unsafe` 类使 Java 语言拥有了类似 C 语言指针一样操作内存空间的能力，这无疑也增加了程序发生相关指针问题的风险。在程序中过度、不正确使用 `Unsafe` 类会使得程序出错的概率变大，使得 Java 这种安全的语言变得不再“安全”，因此对 `Unsafe` 的使用一定要慎重。
 
 另外，`Unsafe` 提供的这些功能的实现需要依赖本地方法（Native Method）。你可以将本地方法看作是 Java 中使用其他编程语言编写的方法。本地方法使用 **`native`** 关键字修饰，Java 代码中只是声明方法头，具体的实现则交给 **本地代码**。
-![](Java面经.assets/image%2029.png)
+![](Java基础.assets/image%2029.png)
 **为什么要使用本地方法呢？**
 1. 需要用到 Java 中不具备的依赖于操作系统的特性，Java 在实现跨平台的同时要实现对底层的控制，需要借助其他语言发挥作用。
 2. 对于其他语言已经完成的一些现成功能，可以使用 Java 直接调用。
@@ -2644,7 +2644,7 @@ java -Xbootclasspath/a: ${path}   // 其中path为调用Unsafe相关方法的类
 6. 线程调度
 7. Class 操作
 8. 系统信息
-![](Java面经.assets/image%2038.png)
+![](Java基础.assets/image%2038.png)
 #### 内存操作
 ##### 介绍
 如果你是一个写过 C 或者 C++ 的程序员，一定对内存操作不会陌生，而在 Java 中是不允许直接对内存进行操作的，对象内存的分配和回收都是由 JVM 自己实现的。但是在 `Unsafe` 中，提供的下列接口可以直接进行内存操作：
@@ -2689,9 +2689,9 @@ addr3: 2433733894944
 72340172838076673
 ```
 分析一下运行结果，首先使用`allocateMemory`方法申请 4 字节长度的内存空间，调用`setMemory`方法向每个字节写入内容为`byte`类型的 1，当使用 Unsafe 调用`getInt`方法时，因为一个`int`型变量占 4 个字节，会一次性读取 4 个字节，组成一个`int`的值，对应的十进制结果为 16843009。
-![](Java面经.assets/image%2030.png)
+![](Java基础.assets/image%2030.png)
 在代码中调用`reallocateMemory`方法重新分配了一块 8 字节长度的内存空间，通过比较`addr`和`addr3`可以看到和之前申请的内存地址是不同的。在代码中的第二个 for 循环里，调用`copyMemory`方法进行了两次内存的拷贝，每次拷贝内存地址`addr`开始的 4 个字节，分别拷贝到以`addr3`和`addr3+4`开始的内存空间上：
-![](Java面经.assets/image%2031.png)
+![](Java基础.assets/image%2031.png)
 拷贝完成后，使用`getLong`方法一次性读取 8 个字节，得到`long`类型的值为 72340172838076673。
 
 需要注意，通过这种方式分配的内存属于 堆外内存 ，是无法进行垃圾回收的，需要我们把这些内存当做一种资源去手动调用`freeMemory`方法进行释放，否则会产生内存泄漏。通用的操作内存方式是在`try`中执行对内存的操作，最终在`finally`块中进行内存的释放。
@@ -2788,7 +2788,7 @@ detected flag changed
 main thread end
 ```
 而如果删掉上面代码中的`loadFence`方法，那么主线程将无法感知到`flag`发生的变化，会一直在`while`中循环。可以用图来表示上面的过程：
-![](Java面经.assets/image%2032.png)
+![](Java基础.assets/image%2032.png)
 运行中的线程不是直接读取主内存中的变量的，只能操作自己工作内存中的变量，然后同步到主内存中，并且线程的工作内存是不能共享的。上面的图中的流程就是子线程借助于主内存，将修改后的结果同步给了主线程，进而修改主线程中的工作空间，跳出循环。
 
 **为什么主线程会重新从主内存读取？**
@@ -2872,7 +2872,7 @@ public native void putOrderedLong(Object o, long offset, long x);
 - `Store`：将处理器缓存的数据刷新到主内存中
 
 顺序写入与`volatile`写入的差别在于，在顺序写时加入的内存屏障类型为`StoreStore`类型，而在`volatile`写入时加入的内存屏障是`StoreLoad`类型，如下图所示：
-![](Java面经.assets/image%2033.png)
+![](Java基础.assets/image%2033.png)
 在有序写入方法中，使用的是`StoreStore`屏障，该屏障确保`Store1`立刻刷新数据到内存，这一操作先于`Store2`以及后续的存储指令操作。而在`volatile`写入中，使用的是`StoreLoad`屏障，该屏障确保`Store1`立刻刷新数据到内存，这一操作先于`Load2`及后续的装载指令，并且，`StoreLoad`屏障会使该屏障之前的所有内存访问指令，包括存储指令和访问指令全部完成之后，才执行该屏障之后的内存访问指令。
 
 综上所述，在上面的三类写入方法中，在写入效率方面，按照`put`、`putOrder`、`putVolatile`的顺序效率逐渐降低。
@@ -2914,7 +2914,7 @@ public native int arrayIndexScale(Class<?> arrayClass);
 ```
 ##### 典型应用
 这两个与数据操作相关的方法，在 `java.util.concurrent.atomic` 包下的 `AtomicIntegerArray`（可以实现对 `Integer` 数组中每个元素的原子性操作）中有典型的应用，如下图 `AtomicIntegerArray` 源码所示，通过 `Unsafe` 的 `arrayBaseOffset`、`arrayIndexScale` 分别获取数组首元素的偏移地址 `base` 及单个元素大小因子 `scale` 。后续相关原子性操作，均依赖于这两个值进行数组中元素的定位，如下图二所示的 `getAndAdd` 方法即通过 `checkedByteOffset` 方法获取某数组元素的偏移地址，而后通过 CAS 实现原子性操作。
-![](Java面经.assets/image%2034.png)
+![](Java基础.assets/image%2034.png)
 #### CAS
 ##### 介绍
 这部分主要为 CAS 相关操作的方法。
@@ -2975,7 +2975,7 @@ private void increment(int x){
 1 2 3 4 5 6 7 8 9
 ```
 在上面的例子中，使用两个线程去修改`int`型属性`a`的值，并且只有在`a`的值等于传入的参数`x`减一时，才会将`a`的值变为`x`，也就是实现对`a`的加一的操作。流程如下所示：
-![](Java面经.assets/image%2035.png)
+![](Java基础.assets/image%2035.png)
 需要注意的是，在调用`compareAndSwapInt`方法后，会直接返回`true`或`false`的修改结果，因此需要我们在代码中手动添加自旋的逻辑。在`AtomicInteger`类的设计中，也是采用了将`compareAndSwapInt`的结果作为循环条件，直至修改成功才退出死循环的方式来实现的原子性的自增操作。
 #### 线程调度
 ##### 介绍
@@ -3049,7 +3049,7 @@ subThread try to unpark mainThread
 unpark mainThread success
 ```
 程序运行的流程也比较容易看懂，子线程开始运行后先进行睡眠，确保主线程能够调用`park`方法阻塞自己，子线程在睡眠 5 秒后，调用`unpark`方法唤醒主线程，使主线程能继续向下执行。整个流程如下图所示：
-![](Java面经.assets/image%2036.png)
+![](Java基础.assets/image%2036.png)
 #### Class 操作
 ##### 介绍
 `Unsafe` 对`Class`的相关操作主要包括类加载和静态变量的操作方法。
@@ -3118,7 +3118,7 @@ private static void defineTest() {
 }
 ```
 在上面的代码中，首先读取了一个`class`文件并通过文件流将它转化为字节数组，之后使用`defineClass`方法动态的创建了一个类，并在后续完成了它的实例化工作，流程如下图所示，并且通过这种方式创建的类，会跳过 JVM 的所有安全检查。
-![](Java面经.assets/image%2037.png)
+![](Java基础.assets/image%2037.png)
 除了`defineClass`方法外，Unsafe 还提供了一个`defineAnonymousClass`方法：
 ```java
 public native Class<?> defineAnonymousClass(Class<?> hostClass, byte[] data, Object[] cpPatches);
@@ -3154,10 +3154,10 @@ SPI 即 Service Provider Interface ，字面意思就是：“服务提供者的
 SPI 将服务接口和具体的服务实现分离开来，将服务调用方和服务实现者解耦，能够提升程序的扩展性、可维护性。修改或者替换服务实现并不需要修改调用方。
 
 很多框架都使用了 Java 的 SPI 机制，比如：Spring 框架、数据库加载驱动、日志接口、以及 Dubbo 的扩展实现等等。
-![](Java面经.assets/image%2039.png)
+![](Java基础.assets/image%2039.png)
 ### SPI 和 API 有什么区别？
 从广义上来说它们都属于接口，而且很容易混淆。下面先用一张图说明一下：
-![](Java面经.assets/image%2040.png)
+![](Java基础.assets/image%2040.png)
 
 一般模块之间都是通过接口进行通讯，因此我们在服务调用方和服务实现方（也称服务提供者）之间引入一个“接口”。
 
@@ -3167,7 +3167,7 @@ SPI 将服务接口和具体的服务实现分离开来，将服务调用方和�
 举个通俗易懂的例子：公司 H 是一家科技公司，新设计了一款芯片，然后现在需要量产了，而市面上有好几家芯片制造业公司，这个时候，只要 H 公司指定好了这芯片生产的标准（定义好了接口标准），那么这些合作的芯片公司（服务提供者）就按照标准交付自家特色的芯片（提供不同方案的实现，但是给出来的结果是一样的）。
 ### 实战演示
 SLF4J （Simple Logging Facade for Java）是 Java 的一个日志门面（接口），其具体实现有几种，比如：Logback、Log4j、Log4j2 等等，而且还可以切换，在切换日志具体实现的时候我们是不需要更改项目代码的，只需要在 Maven 依赖里面修改一些 pom 依赖就好了。
-![](Java面经.assets/image%2041.png)
+![](Java基础.assets/image%2041.png)
 这就是依赖 SPI 机制实现的，那我们接下来就实现一个简易版本的日志框架。
 #### Service Provider Interface
 新建一个 Java 项目 `service-provider-interface` 目录结构如下：
@@ -3318,8 +3318,8 @@ public class Logback implements Logger {
 将 `service-provider-interface` 的 jar 导入项目中。
 
 新建 lib 目录，然后将 jar 包拷贝过来，再添加到项目中。
-![](Java面经.assets/image%2042.png)
-![](Java面经.assets/image%2043.png)
+![](Java基础.assets/image%2042.png)
+![](Java基础.assets/image%2043.png)
 接下来就可以在项目中导入 jar 包里面的一些类和方法了，就像 JDK 工具类导包一样的。
 
 实现 `Logger` 接口，在 `src` 目录下新建 `META-INF/services` 文件夹，然后新建文件 `edu.jiangxuan.up.spi.Logger` （SPI 的全类名），文件里面的内容是：`edu.jiangxuan.up.spi.service.Logback` （Logback 的全类名，即 SPI 的实现类的包名 + 类名）。
@@ -3335,7 +3335,7 @@ public class Logback implements Logger {
 为了更直观的展示效果，我这里再新建一个专门用来测试的工程项目：`java-spi-test`
 
 然后先导入 `Logger` 的接口 jar 包，再导入具体的实现类的 jar 包。
-![](Java面经.assets/image%2044.png)
+![](Java基础.assets/image%2044.png)
 新建 Main 方法测试：
 ```java
 package edu.jiangxuan.up.service;
