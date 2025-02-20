@@ -479,3 +479,92 @@ static final int tableSizeFor(int cap) {
 ### HashMap 和 HashSet 区别
 如果你看过 `HashSet` 源码的话就应该知道：`HashSet` 底层就是基于 `HashMap` 实现的。（`HashSet` 的源码非常非常少，因为除了 `clone()`、`writeObject()`、`readObject()`是 `HashSet` 自己不得不实现之外，其他方法都是直接调用 `HashMap` 中的方法。
 ![](Java集合.assets/image%2013.png)
+### HashMap 和 TreeMap 区别
+`TreeMap` 和`HashMap` 都继承自`AbstractMap` ，但是需要注意的是`TreeMap`它还实现了`NavigableMap`接口和`SortedMap` 接口。
+![](Java集合.assets/image%2014.png)
+实现 `NavigableMap` 接口让 `TreeMap` 有了对集合内元素的搜索的能力。
+
+`NavigableMap` 接口提供了丰富的方法来探索和操作键值对:
+1. **定向搜索**: `ceilingEntry()`, `floorEntry()`, `higherEntry()`和 `lowerEntry()` 等方法可以用于定位大于等于、小于等于、严格大于、严格小于给定键的最接近的键值对。
+2. **子集操作**: `subMap()`, `headMap()`和 `tailMap()` 方法可以高效地创建原集合的子集视图，而无需复制整个集合。
+3. **逆序视图**:`descendingMap()` 方法返回一个逆序的 `NavigableMap` 视图，使得可以反向迭代整个 `TreeMap`。
+4. **边界操作**: `firstEntry()`, `lastEntry()`, `pollFirstEntry()`和 `pollLastEntry()` 等方法可以方便地访问和移除元素。
+这些方法都是基于红黑树数据结构的属性实现的，红黑树保持平衡状态，从而保证了搜索操作的时间复杂度为 O(log n)，这让 `TreeMap` 成为了处理有序集合搜索问题的强大工具。
+
+实现`SortedMap`接口让 `TreeMap` 有了对集合中的元素根据键排序的能力。默认是按 key 的升序排序，不过我们也可以指定排序的比较器。示例代码如下：
+```java
+/**
+ * @author shuang.kou
+ * @createTime 2020年06月15日 17:02:00
+ */
+public class Person {
+    private Integer age;
+
+    public Person(Integer age) {
+        this.age = age;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+
+    public static void main(String[] args) {
+        TreeMap<Person, String> treeMap = new TreeMap<>(new Comparator<Person>() {
+            @Override
+            public int compare(Person person1, Person person2) {
+                int num = person1.getAge() - person2.getAge();
+                return Integer.compare(num, 0);
+            }
+        });
+        treeMap.put(new Person(3), "person1");
+        treeMap.put(new Person(18), "person2");
+        treeMap.put(new Person(35), "person3");
+        treeMap.put(new Person(16), "person4");
+        treeMap.entrySet().stream().forEach(personStringEntry -> {
+            System.out.println(personStringEntry.getValue());
+        });
+    }
+}
+```
+输出：
+```java
+person1
+person4
+person2
+person3
+```
+可以看出，`TreeMap` 中的元素已经是按照 `Person` 的 age 字段的升序来排列了。
+
+上面，我们是通过传入匿名内部类的方式实现的，你可以将代码替换成 Lambda 表达式实现的方式：
+```java
+TreeMap<Person, String> treeMap = new TreeMap<>((person1, person2) -> {
+  int num = person1.getAge() - person2.getAge();
+  return Integer.compare(num, 0);
+});
+```
+**综上，相比于`HashMap`来说， `TreeMap` 主要多了对集合中的元素根据键排序的能力以及对集合内元素的搜索的能力。**
+### HashSet 如何检查重复?
+以下内容摘自我的 Java 启蒙书《Head first java》第二版：
+> 当你把对象加入`HashSet`时，`HashSet` 会先计算对象的`hashcode`值来判断对象加入的位置，同时也会与其他加入的对象的 `hashcode` 值作比较，如果没有相符的 `hashcode`，`HashSet` 会假设对象没有重复出现。但是如果发现有相同 `hashcode` 值的对象，这时会调用`equals()`方法来检查 `hashcode` 相等的对象是否真的相同。如果两者相同，`HashSet` 就不会让加入操作成功。
+
+在 JDK1.8 中，HashSet的add()方法只是简单的调用了HashMap的put()方法，并且判断了一下返回值以确保是否有重复元素。直接看一下HashSet中的源码：
+```java
+// Returns: true if this set did not already contain the specified element
+// 返回值：当 set 中没有包含 add 的元素时返回真
+public boolean add(E e) {
+        return map.put(e, PRESENT)==null;
+}
+```
+而在`HashMap`的`putVal()`方法中也能看到如下说明：
+```java
+// Returns : previous value, or null if none
+// 返回值：如果插入位置没有元素返回null，否则返回上一个元素
+final V putVal(int hash, K key, V value, boolean onlyIfAbsent,
+                   boolean evict) {
+...
+}
+```
+也就是说，在 JDK1.8 中，实际上无论`HashSet`中是否已经存在了某元素，`HashSet`都会直接插入，只是会在`add()`方法的返回值处告诉我们插入前是否存在相同元素。
+### HashMap 的底层实现
+#### JDK1.8 之前
