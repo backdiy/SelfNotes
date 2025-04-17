@@ -2176,3 +2176,5 @@ public class EnsureCapacityTest {
 使用ensureCapacity方法后：1773
 ```
 通过运行结果，我们可以看出向 `ArrayList` 添加大量元素之前使用`ensureCapacity` 方法可以提升性能。不过，这个性能差距几乎可以忽略不计。而且，实际项目根本也不可能往 `ArrayList` 里面添加这么多元素。
+## LinkedList 源码分析
+
